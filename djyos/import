@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# import source from djysrc/djyos/
+# place this script to djysrc/djyos/ and run ./import
+
+mkdir kernel/include -p
+
+for d in include/
+do
+	cp ${d}* kernel/include/
+done
+
+mkdir kernel/ -p
+
+for d in core/ heap/ int/ lock/ msg/ msgqueue/ object/ pool/ tickless/ time/
+do
+	cp ${d}* kernel/
+	for f in ${d}*.c
+	do
+		g="kernel/"$(basename $f)
+		echo $f "->" $g >&2
+		echo "SRC += "${g}
+	done
+	echo
+done
