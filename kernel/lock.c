@@ -992,7 +992,7 @@ void __Lock_ShowSemp(void)
             printf("无名信号量\r\n");
         }
     }
-    printf("\n\r信号量和互斥量总数:%d，空闲数: %d \r\n",\
+    printf("\n\r信号量和互斥量总数:%d，空闲数: %d \r\n",
                     CFG_LOCK_LIMIT,Mb_QueryFree(g_ptLockPool));
 }
 

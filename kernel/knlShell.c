@@ -120,9 +120,9 @@ bool_t event(char *param)
                 StackSize = g_tECB_Table[pl_ecb].vm->stack_size;
             }
 
-            printf("\r\n%05d   %05d   %03d    %02d%%  %08x %08x %08x %s : %lld",\
-                   pl_ecb,g_tECB_Table[pl_ecb].evtt_id &(~CN_EVTT_ID_MASK),\
-                                    g_tECB_Table[pl_ecb].prio,time1,\
+            printf("\r\n%05d   %05d   %03d    %02d%%  %08x %08x %08x %s : %lld",
+                   pl_ecb,g_tECB_Table[pl_ecb].evtt_id &(~CN_EVTT_ID_MASK),
+                                    g_tECB_Table[pl_ecb].prio,time1,
                                     StackSize, g_tECB_Table[pl_ecb].HeapSize,
                                     g_tECB_Table[pl_ecb].HeapSizeMax, name,
                                     g_tECB_Table[pl_ecb].consumed_time);
@@ -176,9 +176,9 @@ bool_t eventk(char *param)
                 StackSize = g_tECB_Table[pl_ecb].vm->stack_size;
             }
 
-            printk("\r\n%05d   %05d   %03d    %02d%%  %08x %08x %08x %s : %lld",\
-                   pl_ecb,g_tECB_Table[pl_ecb].evtt_id &(~CN_EVTT_ID_MASK),\
-                    g_tECB_Table[pl_ecb].prio,time1,\
+            printk("\r\n%05d   %05d   %03d    %02d%%  %08x %08x %08x %s : %lld",
+                   pl_ecb,g_tECB_Table[pl_ecb].evtt_id &(~CN_EVTT_ID_MASK),
+                    g_tECB_Table[pl_ecb].prio,time1,
                     StackSize, g_tECB_Table[pl_ecb].HeapSize,
                     g_tECB_Table[pl_ecb].HeapSizeMax, name,
                     g_tECB_Table[pl_ecb].consumed_time);
@@ -230,10 +230,10 @@ bool_t evtt(char *param)
             name = "unkown";
 #endif  //CFG_OS_TINY == 0
             MemSize += g_tEvttTable[pl_ecb].stack_size;
-            printf("%05d   %03d    %08x  %08x %s",pl_ecb,\
-                    g_tEvttTable[pl_ecb].default_prio,\
-                    (ptu32_t)g_tEvttTable[pl_ecb].thread_routine,\
-                    g_tEvttTable[pl_ecb].stack_size,\
+            printf("%05d   %03d    %08x  %08x %s",pl_ecb,
+                    g_tEvttTable[pl_ecb].default_prio,
+                    (ptu32_t)g_tEvttTable[pl_ecb].thread_routine,
+                    g_tEvttTable[pl_ecb].stack_size,
                     name);
 //            printf("knlshell","%03d    ",g_tEvttTable[pl_ecb].default_prio);
 //            printf("knlshell","%08x  %08x ",

@@ -506,9 +506,9 @@ s32 Time_SetDateTimeStr(char *buf)
     s32 params;
 
     memset(&ptDateTime,0,sizeof(ptDateTime));
-    params = sscanf(buf,"%d/%d/%d,%d:%d:%d:%d",\
-            &ptDateTime.tm_year,&ptDateTime.tm_mon,&ptDateTime.tm_mday,\
-            &ptDateTime.tm_hour,&ptDateTime.tm_min,&ptDateTime.tm_sec,\
+    params = sscanf(buf,"%d/%d/%d,%d:%d:%d:%d",
+            &ptDateTime.tm_year,&ptDateTime.tm_mon,&ptDateTime.tm_mday,
+            &ptDateTime.tm_hour,&ptDateTime.tm_min,&ptDateTime.tm_sec,
             &ptDateTime.tm_us);
 
     //parameters enough
@@ -770,11 +770,11 @@ char *asctime_r(const struct tm *tm,char *buf)
 {
     char *result = NULL;
 
-    if((NULL != tm)&&(NULL != buf)&&(tm->tm_wday <CN_WEEKDAY_MAX)&&\
+    if((NULL != tm)&&(NULL != buf)&&(tm->tm_wday <CN_WEEKDAY_MAX)&&
         (tm->tm_mon<CN_MONTH_MAX))
     {
         //do the transfer
-        sprintf(buf,"%s %s %d %d:%02d:%02d %d",pWeekDay[tm->tm_wday],pMonth[tm->tm_mon],\
+        sprintf(buf,"%s %s %d %d:%02d:%02d %d",pWeekDay[tm->tm_wday],pMonth[tm->tm_mon],
                 tm->tm_mday,tm->tm_hour,tm->tm_min,tm->tm_sec,tm->tm_year);
         result = buf;
     }

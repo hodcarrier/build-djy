@@ -187,7 +187,7 @@ void DjyTickless_SetReload(struct djytickless_param *param,uint8_t evt)
         //1.此时系统没有延时事件以及轮转事件，系统以最大值作为reload值运行
         //2.此时系统有延时事件或者轮转事件，但是其延时时间比系统时钟的一个周期的延时时间还长，
         //此时也会把reload值设为最大值
-            if(next_int_cnt==CN_LIMIT_UINT64 || \
+            if(next_int_cnt==CN_LIMIT_UINT64 ||
                 ((next_int_cnt-(param->cur_cnt))>(djytickless.max_reload_value)))
                 //判断next_int_cnt与当前时间的差值是否还比最大延时值还大
                 return; //否则就是第二种情况，需在switch外面判断next_int_cntUs值是否还比最大延时值还大
@@ -217,7 +217,7 @@ void DjyTickless_SetReload(struct djytickless_param *param,uint8_t evt)
             //取消RRS轮转，当前正在运行的任务的优先级和他下一个任务的优先级不一样的情况下会被触发
             //说明此时已经不需要进行轮转调度，在DJY_SELECT_EVENT_TO_RUN中会被判断触发
             temp_u64 = ((param->next_delay_cnt)>(param->next_rrs_cnt))?(param->next_rrs_cnt):(param->next_delay_cnt);
-            if((next_int_cnt>=temp_u64 && ((next_int_cnt - temp_u64)<(djytickless.min_reload_value))) || \
+            if((next_int_cnt>=temp_u64 && ((next_int_cnt - temp_u64)<(djytickless.min_reload_value))) ||
                 (next_int_cnt<temp_u64 && ((temp_u64 - next_int_cnt)<(djytickless.min_reload_value))))
             return;
             next_int_cnt = temp_u64;
@@ -225,7 +225,7 @@ void DjyTickless_SetReload(struct djytickless_param *param,uint8_t evt)
         default:
             //正常情况下不会进入此处，但当执行RESUME_DELAY之前中断已经到达，此时有可能会进入此处
             //或者底层设置定时时间的时候直接return了的时候也会进这里
-        //    if( ((next_int_cnt==*(param->next_delay_cnt)) && (*(param->next_delay_cnt)<=*NextRRS)) || \
+        //    if( ((next_int_cnt==*(param->next_delay_cnt)) && (*(param->next_delay_cnt)<=*NextRRS)) ||
         //            ((next_int_cnt==*NextRRS) && (*NextRRS<=*(param->next_delay_cnt))) )
         //      return;
             next_int_cnt=((param->next_delay_cnt)>(param->next_rrs_cnt))?(param->next_rrs_cnt):(param->next_delay_cnt);
@@ -248,7 +248,7 @@ void DjyTickless_SetReload(struct djytickless_param *param,uint8_t evt)
     djytickless_debug.return_flag = false;
 #endif
     //计算需要设置的定时时间长度，其最大值不能比定时器的最大定时时间还长
-    cnt=((next_int_cnt-(param->cur_cnt))>(djytickless.max_reload_value))?    \
+    cnt=((next_int_cnt-(param->cur_cnt))>(djytickless.max_reload_value))?
             (djytickless.max_reload_value):(next_int_cnt-(param->cur_cnt));
     if(cnt<(djytickless.min_reload_value))
         cnt = djytickless.min_reload_value;
@@ -272,8 +272,8 @@ void DjyTickless_CheckCnt(struct djytickless_param *param,uint32_t cnt)
     /*这个函数在djyos.c里面的定时器中断函数里被调用，需注意的是，此逻辑与定时中断函数里面的*/
     /*下面判断下一次delay时间以及下一次轮转时间是否到来的逻辑是互斥的，这里是小于等于，那边是大于*/
     /*也就是说，进了这里，是绝对进不了那边下面的判断，否则就不对*/
-    if(cnt==djytickless.max_reload_value && \
-            (param->cur_cnt)<=((param->next_delay_cnt) - (djytickless.min_reload_value)) && \
+    if(cnt==djytickless.max_reload_value &&
+            (param->cur_cnt)<=((param->next_delay_cnt) - (djytickless.min_reload_value)) &&
             (param->cur_cnt)<=((param->next_rrs_cnt) - (djytickless.min_reload_value)) )
     {
         DjyTickless_SetReload(param,ISR_TICK_DELAY_TOO_LONG);
