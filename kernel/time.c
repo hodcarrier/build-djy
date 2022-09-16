@@ -818,6 +818,10 @@ s32 gettimeofday(struct timeval *tv, struct timezone *tz)
 {
     s32 result = -1;
 
+    if( tz )
+        /* not supported */
+        return result;
+
     if(NULL != tv)
     {
         tv->tv_usec = Time_TimeUs(NULL);
@@ -834,6 +838,10 @@ s32 settimeofday(const struct timeval *tv, const struct timezone *tz)
     s32 result = -1;
     time_t timetmp;
     struct tm  time_tm,*time_p;
+
+    if( tz )
+        /* not supported */
+        return result;
 
     if(NULL != tv)
     {
