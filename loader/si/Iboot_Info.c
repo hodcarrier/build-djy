@@ -936,11 +936,10 @@ extern u32 gc_ProductSn;
 bool_t write_finger_to_iboot(s8 *time, s8 *num)
 {
     u8 iboot_sn_buf[16] = {0};
-    ptu32_t iboot_sn_addr = 0;
+    void *iboot_sn_addr;
     struct ProductInfo *info;
 
-//  iboot_sn_addr = (u32)(&gc_ProductSn) / 32 * 34;
-    iboot_sn_addr = (u32)(&gc_ProductSn);
+    iboot_sn_addr = &gc_ProductSn;
     if(iboot_sn_addr)
     {
 //      djy_flash_read(iboot_sn_addr, iboot_sn_buf, 16);
@@ -968,7 +967,8 @@ bool_t write_finger_to_iboot(s8 *time, s8 *num)
 //-----------------------------------------------------------------------------
 bool_t read_finger_from_iboot(s8 *finger, u32 buf_len)
 {
-    u32 iboot_sn_addr = 0, len;
+    void *iboot_sn_addr;
+    u32 len;
     struct ProductInfo *info;
 
     len = sizeof(info->ProductionTime) + sizeof(info->ProductionNumber) + sizeof(info->TypeCode);
@@ -980,7 +980,7 @@ bool_t read_finger_from_iboot(s8 *finger, u32 buf_len)
          return false;
      }
 
-    iboot_sn_addr = (u32)(&gc_ProductSn) ;
+    iboot_sn_addr = &gc_ProductSn;
     memcpy(finger, iboot_sn_addr, 16);
 //  if(iboot_sn_addr)
 //  {
@@ -2237,7 +2237,7 @@ bool_t Iboot_GetErrorAppSize(void)
 
 
 //========================SHELL================================================
-static bool_t ibootinfo( )
+static bool_t __attribute__((unused)) ibootinfo( )
 {
     printf("iboot version:V%2d.%2d.%2d \n\r",Iboot_App_Info.iboot_ver_small,Iboot_App_Info.iboot_ver_medium,
                                                                         Iboot_App_Info.iboot_ver_large);
@@ -2251,7 +2251,7 @@ static bool_t ibootinfo( )
 }
 
 
-static bool_t appinfo( )
+static bool_t __attribute__((unused)) appinfo( )
 {
     struct AppHead*  p_apphead = gc_pAppOffset;
     if(p_apphead->djy_flag[0]!='d' || p_apphead->djy_flag[1]!='j' || p_apphead->djy_flag[2]!='y' )
@@ -2315,7 +2315,7 @@ bool_t Iboot_GetPowerOnResentFlag(void)
         return false;
 }
 
-static bool_t Iboot_IAP_Mode( )
+static bool_t __attribute__((unused)) Iboot_IAP_Mode( )
 {
 #if (CFG_RUNMODE_BAREAPP == 0)
     if(Iboot_App_Info.runflag.hard_set_run_iboot)

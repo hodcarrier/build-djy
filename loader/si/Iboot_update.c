@@ -589,6 +589,7 @@ ADD_TO_ROUTINE_SHELL(runapp,runapp,"直接运行APP(仅在采取内存标示确�
 //static bool_t rebootshell(char *param)
 bool_t rebootshell(char *param)
 {
+    (void) param;
 
     CPU_Reboot( );
     return true;
@@ -598,12 +599,16 @@ bool_t rebootshell(char *param)
 //static bool_t resetshell(char *param)
 bool_t resetshell(char *param)
 {
+    (void) param;
+
     CPU_Reset();
     return true;
 }
 //static bool_t reloadshell(char *param)
 bool_t restart(char *param)
 {
+    (void) param;
+
     CPU_RestartSystem();
     return true;
 }
