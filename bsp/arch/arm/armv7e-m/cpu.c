@@ -181,7 +181,7 @@ void CPU_RestartSystem(void)
 
 enStartMode GetBootMethodSoft(void)
 {
-    enStartMode result;
+    enStartMode result = 0;
     return result;
 }
 enum
