@@ -52,6 +52,8 @@
 
 #include "stdint.h"
 #include "stddef.h"
+#include <stdio.h>
+#include <djyos.h>
 
 ptu32_t djy_main(void)
 {
